@@ -1,0 +1,31 @@
+version: "3"
+services:
+  db:
+    image: postgis/postgis:latest
+    container_name: database_container
+    volumes:
+      - './data:/var/lib/postgresql:Z'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      # Add extensions you need to be enabled by default in the DB. Default are the five specified below
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      - RUN_AS_ROOT=true
+    ports:
+      - "5432:5432"
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "postgres@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+      - "4321:80"
+    restart: on-failure
+    depends_on:
+      - db

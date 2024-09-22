@@ -1,0 +1,30 @@
+[
+    {
+        "IndicadorCod": "0008273",
+        "IndicadorDsg": "Popula\u00e7\u00e3o residente (N.\u00ba) por Local de resid\u00eancia (NUTS - 2013), Sexo e Grupo et\u00e1rio; Anual - INE, Estimativas anuais da popula\u00e7\u00e3o residente",
+        "MetaInfUrl": "https://www.ine.pt/bddXplorer/htdocs/minfo.jsp?var_cd=0008273&lingua=PT",
+        "DataExtracao": "2023-06-02T23:23:28.850+01:00",
+        "DataUltimoAtualizacao": "2023-05-15",
+        "UltimoPref": "2022",
+        "Dados": {
+            "2021": [
+                {
+                    "geocod": "1190312",
+                    "geodsg": "Vila Nova de Famalic\u00e3o",
+                    "dim_3": "T",
+                    "dim_3_t": "HM",
+                    "dim_4": "T",
+                    "dim_4_t": "Total",
+                    "valor": "134084"
+                }
+            ]
+        },
+        "Sucesso": {
+            "Verdadeiro": [
+                {
+                    "Msg": "OK"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,89 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Navbar brand 
+    <a class="navbar-brand" href="#">Navbar</a> -->
+
+    <!-- Toggle button -->
+    <button class="btn navbar-toggler" type="button" data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="fas fa-bars text-light"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" href="{% url 'index' %}">
+            <div>
+              <i class="fas fa-map fa-lg mb-1"></i>
+            </div>
+            Map
+          </a>
+        </li>
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+          <div>
+            <i class="fas fa-file-import fa-lg mb-1"></i>
+          </div>
+            Import
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" id="import-file">Local</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="upload_file">Remote</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" id="heatmap-btn">
+            <div>
+              <i class="fas fa-fire fa-lg mb-1"></i>
+            </div>
+            Heatmap
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" href="clear_data">
+            <div>
+              <i class="fas fa-trash fa-lg mb-1"></i>
+            </div>
+            Remove Data
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" href="{% url 'user' %}">
+            <div>
+              <i class="fas fa-user fa-lg mb-1"></i>
+            </div>
+            My Profile
+          </a>
+        </li>
+      </ul>
+
+      <!-- Search form -->
+      <form class="d-flex" role="search">
+        <input type="search" id="map-search" class="form-control" placeholder="Search here..." aria-label="Search"/>
+        <button class="btn" type="submit">
+          <i class="fa fa-search" aria-hidden="true" style="color: #edf2f4;"></i>
+        </button>
+      </form>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+<div>
+  <button id="remove-heatmap" style="margin-top:10px; display: none;">Remove Heatmap</button>
+</div>

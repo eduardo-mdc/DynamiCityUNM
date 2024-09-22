@@ -1,0 +1,1 @@
+https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0008273&Dim1=S7A2021&Dim2=1190312&Dim3=T&Dim4=T&lang=PT

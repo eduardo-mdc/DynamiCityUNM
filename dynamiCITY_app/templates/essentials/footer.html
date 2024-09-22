@@ -1,0 +1,26 @@
+{% load static %}
+<footer class="bg-white sticky-footer">
+    <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © UNM 2023</span></div>
+    </div>
+</footer>
+</body>
+
+<script>
+    var concelhos = {{concelhos|safe}};
+    var distritos = {{distritos|safe}};
+    var locations = {{locations|safe}};
+    var areas = {{areas|safe}};
+    var area_properties = {{properties|safe}};
+    var navbarContent = '{{navbar | escapejs}}';
+    const raw_layers_objects = {
+        "concelhos": {{concelhos|safe}},
+        "distritos": {{distritos|safe}},
+        "locations": {{locations|safe}}
+    }
+    
+  </script>
+
+<script src="{% static 'js/map.js' %}"></script>
+<script>loadMap(raw_layers_objects, navbarContent);</script>
+</html>

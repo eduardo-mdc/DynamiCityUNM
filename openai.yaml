@@ -1,0 +1,597 @@
+openapi: 3.0.0
+info:
+  title: DynamiCITY REST API
+  description: This documentation provides detailed information on the APIs exposed by the dynamiCITY project, which aims to provide geospatial data and functionality related to counties and districts. The APIs allow developers to interact with information about counties, districts, and other models present in the application.
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/api
+    description: Production Server
+  - url: https://localhost:8000/api
+    description: Development Server
+
+paths:
+  /token-auth:
+    post:
+      summary: Obtain an authentication token
+      description: |
+        This Endpoints allows a developer to retrieve their associated authentication token, when they provide a username and password for a user that exists on the database.
+      parameters:
+        - $ref: '#/components/parameters/Username'
+        - $ref: '#/components/parameters/Password'
+      responses:
+        '200':
+          description: A successful response with a token 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: The associated authentication token that can be later used on other endpoints
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  /districts:
+    get:
+      summary: Retrieve a list of districts
+      description: |
+        This endpoint allows you to retrieve a list of districts along with their polygon and multipolygon geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of districts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Districts'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  /districts/{id}:
+    get:
+      summary: Retrieve a specific district
+      description: |
+        This endpoint allows you to retrieve a specific district by its ID along with its polygon and multipolygon geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+          
+      responses:
+        '200':
+          description: A successful response with the district information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/District'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /county:
+    get:
+      summary: Retrieve a list of counties
+      description: |
+        This endpoint allows you to retrieve a list of counties along with their polygon and multipolygon geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of counties
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Counties'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /county/{id}:
+    get:
+      summary: Retrieve a specific district
+      description: |
+        This endpoint allows you to retrieve a specific county by its ID along with its polygon and multipolygon geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A successful response with the district information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/County'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  /location:
+    get:
+      summary: Retrieve a list of locations
+      description: |
+        This endpoint allows you to retrieve a list of locations along with their geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Locations'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /location/{id}:
+    get:
+      summary: Retrieve a specific location
+      description: |
+        This endpoint allows you to retrieve a specific location by its ID along with its point geometry.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A successful response with the district information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    
+  /area:
+    get:
+      summary: Retrieve a list of areas
+      description: |
+        This endpoint allows you to retrieve a list of areas along with their geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of areas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Areas'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /area/{id}:
+    get:
+      summary: Retrieve a specific area
+      description: |
+        This endpoint allows you to retrieve a specific area by its ID along with its polygon and multipolygon geometry.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A successful response with the area information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  
+  /polygon:
+    get:
+      summary: Retrieve a list of polygons
+      description: |
+        This endpoint allows you to retrieve a list of polygons along with their geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of polygons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Polygons'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /polygon/{id}:
+    get:
+      summary: Retrieve a specific polygon
+      description: |
+        This endpoint allows you to retrieve a specific polygon by its ID along with its polygon geometry.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A successful response with the polygon information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Polygon'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    
+  /multipolygon:
+    get:
+      summary: Retrieve a list of multipolygons
+      description: |
+        This endpoint allows you to retrieve a list of multipolygons along with their geometries.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+      responses:
+        '200':
+          description: A successful response with a list of multipolygons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Multipolygons'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /multipolygon/{id}:
+    get:
+      summary: Retrieve a specific multipolygon
+      description: |
+        This endpoint allows you to retrieve a specific multipolygon by its ID along with its multipolygon geometry.
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationHeader'
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: A successful response with the multipolygon information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Multipolygon'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+components:
+  parameters:
+    AuthorizationHeader:
+      name: Authorization
+      in: header
+      description: Access token for a uthentication
+      required: true
+      schema:
+        type: string
+    Username:
+      name: Username
+      in: path
+      description: Username used for authentication
+      required: true
+      schema:
+        type: string
+    Password:
+      name: Password
+      in: path
+      description: Password used for authentication
+      required: true
+      schema:
+        type: string
+    id:
+      name: id
+      in: path
+      description: ID which identifies the object to retrieve
+      required: true
+      schema:
+        type: integer
+        
+  responses:
+    BadRequestResponse:
+      description: Bad request
+    UnauthorizedResponse:
+      description: Unauthorized Access, which implies that no token or an invalid token was provided
+    ForbiddenResponse:
+      description: Forbidden Access, the given token does not access to this resource
+    NotFoundResponse:
+      description: Not found, the given endpoint does not exist.
+    InternalServerErrorResponse:
+      description: Internal server error, something went wrong on the backend.
+
+  schemas:
+    District:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the district
+        attributes:
+          type: object
+          properties:
+            district_name:
+              type: string
+              description: The name of the district
+            created:
+              type: string
+              format: date-time
+              description: The creation date of the district
+            polygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The polygon geometry of the district in Well-Known Text (WKT) format
+            multipolygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The multipolygon geometry of the district in Well-Known Text (WKT) format
+
+    Districts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/District'
+
+    County:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the county
+        attributes:
+          type: object
+          properties:
+            county_name:
+              type: string
+              description: The name of the county
+            created:
+              type: string
+              format: date-time
+              description: The creation date of the county
+            polygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The polygon geometry of the county in Well-Known Text (WKT) format
+            multipolygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The multipolygon geometry of the county in Well-Known Text (WKT) format
+      
+    Counties:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/County'
+    
+    Location:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the location
+        attributes:
+          type: object
+          properties:
+            location_name:
+              type: string
+              description: The name of the location
+            created:
+              type: string
+              format: date-time
+              description: The creation date of the location
+            point:
+              type: string
+              format: wkt
+              nullable: true
+              description: The polygon geometry of the point in Well-Known Text (WKT) format
+          
+    Locations:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+
+    Area:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the area
+        attributes:
+          type: object
+          properties:
+            area_name:
+              type: string
+              description: The name of the area
+            created:
+              type: string
+              format: date-time
+              description: The creation date of the area
+            polygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The polygon geometry of the area in Well-Known Text (WKT) format
+            multipolygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The multipolygon geometry of the area in Well-Known Text (WKT) format
+    Areas:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Area'
+    
+    Polygon:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the Polygon
+        attributes:
+          type: object
+          properties:
+            polygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The polygon geometry in Well-Known Text (WKT) format
+
+    Polygons:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Polygon'
+
+    Multipolygon:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of object
+        id:
+          type: integer
+          description: The ID of the Multipolygon
+        attributes:
+          type: object
+          properties:
+            multipolygon:
+              type: string
+              format: wkt
+              nullable: true
+              description: The multipolygon geometry in Well-Known Text (WKT) format
+
+    Multipolygons:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Multipolygon'
+
+
+

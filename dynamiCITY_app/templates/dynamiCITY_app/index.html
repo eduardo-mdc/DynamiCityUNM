@@ -1,0 +1,71 @@
+{% include "essentials/head.html" %}
+  <div id="map"></div>  
+
+  <!-- Modal -->
+  <div class="modal fade" id="heatmap-modal" tabindex="-1" aria-labelledby="heatmap-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="heatmap-modalLabel">Create Heatmap</h1>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="heatmap-modal-config">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" id="apply-heatmap">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" tabindex="-1" id="importModal" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="file-upload-csv" class="form-label">CSV File</label>
+                  <input class="form-control" type="file" id="file-upload-csv" size="100" accept=".csv">
+                </div>
+                <div class="mb-3">
+                    <label for="file-upload-json" class="form-label">GeoJSON File</label>
+                    <input class="form-control" type="file" id="file-upload-json" accept=".geojson">
+                </div>
+                <div class="mb-3">
+                  <label for="file-upload-properties" class="form-label">Properties (CSV)</label>
+                  <input class="form-control" type="file" id="file-upload-properties" accept=".csv">
+                </div>
+                <div class="mb-3">
+                    <label for="layer-name" class="form-label">Layer Name</label>
+                    <input class="form-control" type="text" id="layer-name">
+                </div>
+                <div class="mb-3">
+                    <label for="fill-color" class="form-label">Fill Color</label>
+                    <input class="form-control" type="color" id="fill-color">
+                </div>
+                <div class="mb-3">
+                    <label for="border-color" class="form-label">Border Color</label>
+                    <input class="form-control" type="color" id="border-color">
+                </div>
+                <div class="mb-3">
+                    <label for="fill-opacity" class="form-label">Fill Opacity (0 to 1)</label>
+                    <input class="form-control" type="number" id="fill-opacity" min="0" max="1" step="0.1">
+                </div>
+                <div class="mb-3">
+                    <label for="weight" class="form-label">Border Thickness</label>
+                    <input class="form-control" type="number" id="weight" min="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="import-button" data-bs-dismiss="modal">Import</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "essentials/footer.html" %}

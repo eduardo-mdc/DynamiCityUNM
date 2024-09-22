@@ -1,0 +1,15 @@
+Django>=3.0
+psycopg2>=2.8
+asgiref
+django-extensions
+django-filter
+djangorestframework
+djangorestframework-jsonapi
+djangorestframework-gis
+inflection
+python-dotenv
+pytz
+sqlparse
+tzdata
+requests
+shapely

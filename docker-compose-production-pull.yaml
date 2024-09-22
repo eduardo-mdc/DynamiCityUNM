@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    image: eduardomdcup/dynamicity_unm:latest
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py flush --no-input && python manage.py loaddata dynamiCITY_app/fixtures/seed.json && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - DB_HOSTNAME=db
+      - DB_PORT=5432
+      - SECRET_KEY=secret_key_dynamicity
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=* localhost 127.0.0.1 [::1]
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    restart: on-failure

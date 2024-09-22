@@ -1,0 +1,43 @@
+{% include "essentials/head.html" %}
+<div class="container main-wrapper">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-12 col-xl-10">
+            <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card-body p-0 mx-5 my-5">
+                    <a href="../user">
+                        <button class="btn btn-warning mt-4 mb-4">
+                            <i class="fas fa-arrow-left"></i> Back to Profile
+                        </button>
+                    </a>
+                    <h2 class="mb-2 mt-2">Edit Data</h2>
+                    <form method="POST" action="edit">
+                      {% csrf_token %}
+                        <div class="row mb-5 mt-5">
+                            <div class="col-lg-12 justify-content-center">
+                                <h5><strong>Warning:</strong> If you change your password you will be logged out, and will have to login with your new password</h5>
+                            </div>
+                            {% if message %}
+                              <div class="col-lg-12 justify-content-center">
+                                <h5><strong style="color: red;">Error:</strong> {{message}}</h5>
+                              </div>
+                            {% endif %}
+                        </div>
+                        <div class="row mb-5 mt-5">
+                            {% for field in form  %}
+                            <div class="col">
+                                {% if field.name != 'is_admin'%}
+                                    {{ field.errors }}
+                                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label><br>
+                                    {{ field }}<br>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "essentials/footer.html" %}
